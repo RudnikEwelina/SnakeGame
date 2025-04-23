@@ -1,0 +1,20 @@
+Index: src/main/java/snake/structure/GamePanel.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package snake.structure;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\n\r\nimport static javax.swing.text.StyleConstants.setBackground;\r\n\r\npublic class GamePanel extends JPanel implements ActionListener {\r\n\r\n    private static final int SCREEN_WIDTH = 800;\r\n    private static final int SCREEN_HEIGHT = 700;\r\n    private static final int DELAY = 100;\r\n\r\n\r\n    public GamePanel() {\r\n        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));\r\n        setBackground(Color.BLACK);\r\n        setFocusable(true);\r\n\r\n        Timer timer = new Timer(DELAY, this);\r\n        timer.start();\r\n    }\r\n\r\n    @Override\r\n    protected void paintComponent(Graphics g) {\r\n        super.paintComponent(g);\r\n    }\r\n\r\n    @Override\r\n    public void actionPerformed(ActionEvent e) {\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/snake/structure/GamePanel.java b/src/main/java/snake/structure/GamePanel.java
+--- a/src/main/java/snake/structure/GamePanel.java	(revision 53bb6a8bd832458b98f736af228f890575487f7d)
++++ b/src/main/java/snake/structure/GamePanel.java	(date 1745419479125)
+@@ -12,6 +12,9 @@
+     private static final int SCREEN_WIDTH = 800;
+     private static final int SCREEN_HEIGHT = 700;
+     private static final int DELAY = 100;
++    private Food food;
++    private Snake snake;
++    private boolean gameOver;
+ 
+ 
+     public GamePanel() {

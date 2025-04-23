@@ -2,19 +2,20 @@ package snake.structure;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-import static javax.swing.text.StyleConstants.setBackground;
 
 public class GamePanel extends JPanel implements ActionListener {
 
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 700;
     private static final int DELAY = 100;
-    private Snake snake;
     private Food food;
+    private Snake snake;
+    private boolean gameOver;
 
 
     public GamePanel() {
@@ -39,6 +40,8 @@ public class GamePanel extends JPanel implements ActionListener {
 
         snake = new Snake(100, 100, SCREEN_WIDTH, SCREEN_HEIGHT);
         food = new Food(SCREEN_WIDTH, SCREEN_HEIGHT);
+        gameOver = false;
+
         Timer timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -46,9 +49,37 @@ public class GamePanel extends JPanel implements ActionListener {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        draw(g);
+    }
+
+    private void draw(Graphics g) {
+        if (gameOver) {
+            g.setColor(Color.RED);
+            String gameOverText = "GAME OVER";
+            FontMetrics metrics = g.getFontMetrics(g.getFont());
+            g.drawString(gameOverText, (SCREEN_WIDTH - metrics.stringWidth(gameOverText)) / 2, SCREEN_HEIGHT / 2);
+        } else {
+            for (Point point : snake.getBody()) {
+                g.setColor(Color.GREEN);
+                g.fillRect(point.x, point.y, 10, 10);
+            }
+            food.draw(g);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(!gameOver) {
+            snake.move();
+            if (snake.checkSelfCollision() || snake.checkWallCollision()) {
+                gameOver = true;
+            }
+
+            if (food.isEatenBySnake(snake)) {
+                snake.grow();
+                food.generateNewFood(SCREEN_WIDTH, SCREEN_HEIGHT);
+            }
+            repaint();
+        }
     }
 }

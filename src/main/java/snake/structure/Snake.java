@@ -59,6 +59,11 @@ public class Snake {
         return (direction.x + dx == 0 && direction.y + dy == 0);
     }
 
+    public boolean checkSelfCollision() {
+        Point head = body.getFirst();
+        return body.stream().skip(1).anyMatch(segment -> segment.equals(head));
+    }
+
     public boolean checkWallCollision() {
         Point head = body.getFirst();
         int x = head.x;
