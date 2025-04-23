@@ -1,4 +1,4 @@
-package org.example;
+package snake.structure;
 
 public class Main {
     public static void main(String[] args) {
