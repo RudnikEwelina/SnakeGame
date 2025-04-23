@@ -14,6 +14,7 @@ public class GamePanel extends JPanel implements ActionListener {
     private static final int SCREEN_HEIGHT = 700;
     private static final int DELAY = 100;
     private Snake snake;
+    private Food food;
 
 
     public GamePanel() {
@@ -37,6 +38,7 @@ public class GamePanel extends JPanel implements ActionListener {
         });
 
         snake = new Snake(100, 100, SCREEN_WIDTH, SCREEN_HEIGHT);
+        food = new Food(SCREEN_WIDTH, SCREEN_HEIGHT);
         Timer timer = new Timer(DELAY, this);
         timer.start();
     }
