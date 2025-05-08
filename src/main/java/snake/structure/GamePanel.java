@@ -10,9 +10,10 @@ import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel implements ActionListener {
 
+    private static final int gridSize = 20;
     private static final int SCREEN_WIDTH = 800;
     private static final int SCREEN_HEIGHT = 700;
-    private static final int DELAY = 100;
+    private static final int DELAY = 300;
     private Food food;
     private Snake snake;
     private boolean gameOver;
@@ -38,8 +39,8 @@ public class GamePanel extends JPanel implements ActionListener {
             }
         });
 
-        snake = new Snake(100, 100, SCREEN_WIDTH, SCREEN_HEIGHT);
-        food = new Food(SCREEN_WIDTH, SCREEN_HEIGHT);
+        snake = new Snake(100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, gridSize);
+        food = new Food(SCREEN_WIDTH, SCREEN_HEIGHT, gridSize);
         gameOver = false;
 
         Timer timer = new Timer(DELAY, this);
@@ -61,7 +62,7 @@ public class GamePanel extends JPanel implements ActionListener {
         } else {
             for (Point point : snake.getBody()) {
                 g.setColor(Color.GREEN);
-                g.fillRect(point.x, point.y, 10, 10);
+                g.fillRect(point.x, point.y, gridSize, gridSize);
             }
             food.draw(g);
         }
